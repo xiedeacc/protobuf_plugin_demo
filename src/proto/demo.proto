@@ -1,0 +1,7 @@
+syntax = "proto3";
+message Item2Ad {
+  oneof sales_diff_oneof { sint64 sales_diff = 1; }
+  oneof price_diff_oneof { float price_diff = 2; }
+  oneof cat_relate_oneof { float cat_relate = 3; }
+  oneof match_weight_oneof { float match_weight = 4; }
+}
