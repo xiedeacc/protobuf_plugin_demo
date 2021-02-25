@@ -23,6 +23,7 @@ public:
   static std::string GetRealPath(const std::string &path);
   static std::string LoadContent(const std::string &file_name);
   static std::vector<std::string> LoadLines(const std::string &file_name);
+  static std::string GetCurrentPath();
   static void Replace(const std::string &from, const std::string &to,
                       std::string *str);
 };

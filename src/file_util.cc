@@ -106,4 +106,7 @@ void FileUtil::Replace(const string &from, const string &to, string *str) {
   str->replace(start_pos, from.length(), to);
 }
 
+string FileUtil::GetCurrentPath() {
+  return boost::filesystem::current_path().string();
+}
 } // namespace demo

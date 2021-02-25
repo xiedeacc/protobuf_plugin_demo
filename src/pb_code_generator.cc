@@ -528,7 +528,11 @@ string PBCodeGenerator::GetFullPath(const string &file_name) const {
 
 int main(int argc, char *argv[]) {
   string template_dir = argv[0];
+  LOG(ERROR) << template_dir << "  " << FileUtil::GetRealPath(template_dir)
+             << "    " << FileUtil::GetCurrentPath();
+  template_dir = FileUtil::GetRealPath(template_dir);
   template_dir += ".runfiles";
+  LOG(ERROR) << template_dir;
   vector<string> all_files;
   if (!FileUtil::ListDirRecursive(template_dir, &all_files)) {
     LOG(ERROR) << "Fail to list directory of " << template_dir;

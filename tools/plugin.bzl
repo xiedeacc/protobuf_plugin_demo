@@ -1,6 +1,5 @@
 def _get_external_root(ctx):
     gendir = ctx.var["GENDIR"] + "/"
-    print(gendir)
     external_roots = []
     path = ctx.attr.src.files.to_list()[0].path
     if path.startswith(gendir):
@@ -23,11 +22,7 @@ def _get_external_root(ctx):
 
 def _check_if_protos_are_generated(ctx):
     generated_path = ctx.var["GENDIR"]
-    print(generated_path)
-    print(ctx.attr.src.files.to_list())
     for plfile in ctx.attr.src.files.to_list():
-        print(plfile.path)
-        print(plfile.is_source)
         if not plfile.path.startswith(generated_path):
             return False
         if not plfile.is_source:
@@ -46,7 +41,8 @@ def _get_offset_path(root, path):
     if root == ".":
         return path
 
-        # "external/foobar/file.proto" --> "file.proto"  if path.startswith(root):
+    # "external/foobar/file.proto" --> "file.proto"  if path.startswith(root):
+    if path.startswith(root):
         start = len(root)
         if not root.endswith("/"):
             start += 1
@@ -62,8 +58,6 @@ def proto_generate_impl(ctx):
         execdir = ctx.var["GENDIR"] + external
     protoc = _get_offset_path(execdir, ctx.executable.protoc.path)
     plugin = _get_offset_path(execdir, ctx.executable.plugin.path)
-    print(ctx.executable.plugin.path)
-    print(plugin)
     dir_out = _get_offset_path(execdir, ctx.genfiles_dir.path)
     proto = ctx.attr.src.files.to_list()[0]
 
@@ -109,6 +103,7 @@ _proto_generate = rule(
             executable = True,
             providers = ["files_to_run"],
             cfg = "target",
+            allow_files = True,
         ),
         "outs": attr.string_list(),
         "protoc": attr.label(
