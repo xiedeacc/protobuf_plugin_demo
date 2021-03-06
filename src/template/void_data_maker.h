@@ -2,8 +2,8 @@
 #define VOID_DATA_MAKER_H_
 #include "absl/time/clock.h"
 #include "src/base_type_memory.h"
-#include "src/foo.pb.h"
-#include "src/bar.pb.h"
+#include "foo/foo.pb.h"
+#include "bar/bar.pb.h"
 #include <vector>
 namespace protobuf_plugin_demo {
 

@@ -28,9 +28,9 @@ using std::vector;
 
 namespace protobuf_plugin_demo {
 
-    PBCodeGenerator::PBCodeGenerator(const string &template_dir) {
+    PBCodeGenerator::PBCodeGenerator(const string &template_base_dir) {
         this->file_ = nullptr;
-        this->template_dir_ = template_dir;
+        this->template_base_dir_ = template_base_dir;
         this->generator_context_ = nullptr;
     }
 
@@ -39,7 +39,10 @@ namespace protobuf_plugin_demo {
         GeneratorContext *generator_context,
         string *error) const {
         generator_context_ = generator_context;
+        template_dir_ = template_base_dir_ + "/" + parameter;
         file_ = file;
+        LOG(ERROR) << "proto file name: " << file_->name()
+            << ", template_dir: " << template_dir_;
         bool ret = true;
         ret = ret && GeneratePBFeatureData();
         ret = ret && GenerateVoidDataCodeH();
@@ -338,10 +341,9 @@ namespace protobuf_plugin_demo {
 } // namespace protobuf_plugin_demo
 
 int main(int argc, char *argv[]) {
-    string template_base_dir = FgFileUtil::GetRealPath(argv[0]);
-    template_base_dir = FgFileUtil::TruncatePath(template_base_dir, "bazel-out");
+    string template_base_dir = FileUtil::GetRealPath(argv[0]);
+    template_base_dir = FileUtil::TruncatePath(template_base_dir, "bazel-out");
     LOG(ERROR) << template_base_dir;
-    fg::feature::PBFeatureCodeGenerator generator(template_base_dir);
-    protobuf_plugin_demo::PBCodeGenerator generator(real_full_path);
+    protobuf_plugin_demo::PBCodeGenerator generator(template_base_dir);
     return google::protobuf::compiler::PluginMain(argc, argv, &generator);
 }

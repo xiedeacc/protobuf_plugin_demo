@@ -3,13 +3,22 @@ load("//tools:plugin.bzl", "cc_proto_plugin")
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
+    name = "attr",
+    hdrs = ["attr.h"],
+    deps = [
+        "@com_google_absl//absl/container:inlined_vector",
+        "@glog",
+    ],
+)
+
+cc_library(
     name = "base_type_memory",
     hdrs = ["base_type_memory.h"],
     deps = [
-        ":fg_attr",
         "//external:gtest",
         "@boost//:smart_ptr",
         "@com_google_absl//absl/time",
+        ":attr",
     ],
 )
 
@@ -63,12 +72,20 @@ cc_proto_plugin(
     linkstatic = 1,
     plugin = ":pb_code_generator",
     protoc = "@com_google_protobuf//:protoc",
+    data = [
+        "//src/template:void_data_maker.cc",
+        "//src/template:void_data_maker.h",
+    ],
+    proto_file = "@cc_grpc_library_demo//:foo_proto",
     deps = [
         "@cc_grpc_library_demo//:cc_bar_proto",
         "@cc_grpc_library_demo//:cc_foo_proto",
         "@boost//:smart_ptr",
         "@com_google_absl//absl/strings",
+        "@com_google_absl//absl/time",
+        "@com_google_absl//absl/synchronization",
         "@glog",
+        ":base_type_memory",
         "@rapidjson",
     ],
 )

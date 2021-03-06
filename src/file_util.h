@@ -21,6 +21,8 @@ public:
   static std::string GetCurrentPath();
   static void Replace(const std::string &from, const std::string &to,
                       std::string *str);
+  static std::string TruncatePath(const std::string &src,
+                                  const std::string &path);
 };
 
 } /* namespace protobuf_plugin_demo*/

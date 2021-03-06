@@ -59,8 +59,10 @@ def proto_generate_impl(ctx):
     protoc = _get_offset_path(execdir, ctx.executable.protoc.path)
     plugin = _get_offset_path(execdir, ctx.executable.plugin.path)
     dir_out = _get_offset_path(execdir, ctx.genfiles_dir.path)
-    proto = ctx.attr.src.files.to_list()[0]
-
+    plugin_directory = ctx.attr.data[0].files.to_list()[0].dirname
+    print(plugin_directory)
+    proto = ctx.attr.proto_file[ProtoInfo].direct_sources[0]
+    
     out_files = [ctx.actions.declare_file(out) for out in ctx.attr.outs]
     dir_out = "%s/%s" % (dir_out, ctx.build_file_path[:-5])
     path = _get_offset_path(execdir, proto.path)
@@ -80,6 +82,7 @@ def proto_generate_impl(ctx):
             continue
         protoc_cmd += ["-I" + rpath + "=" + ppath]
     protoc_cmd += ["--plugin=protoc-gen-PLUGIN=" + plugin]
+    protoc_cmd += ["--PLUGIN_opt=" + plugin_directory]
     protoc_cmd += ["--PLUGIN_out=" + dir_out]
     protoc_cmd += [path]
 
@@ -87,6 +90,7 @@ def proto_generate_impl(ctx):
     if execdir != ".":
         cmds += ["cd %s" % execdir]
     cmds += [" ".join(protoc_cmd)]
+    print(cmds)
     ctx.actions.run_shell(
         inputs = all_inputs + [ctx.executable.plugin] + [ctx.executable.protoc],
         outputs = out_files,
@@ -123,7 +127,7 @@ _proto_generate = rule(
     implementation = proto_generate_impl,
 )
 
-def proto_generate(name, src, plugin, outs = [], protoc = None):
+def proto_generate(name, src, plugin, proto_file, data, outs = [], protoc = None):
     args = {}
     args.update({
         "name": name,

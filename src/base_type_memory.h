@@ -2,10 +2,9 @@
 #define BASE_TYPE_MEMORY_H_
 #include <string>
 #include <vector>
-#include "fg/common/fg_attr.h"
 #include "glog/logging.h"
 #include "gtest/gtest_prod.h"
-
+#include "attr.h"
 #define likely(x) __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
 

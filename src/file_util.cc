@@ -105,4 +105,13 @@ void FileUtil::Replace(const string &from, const string &to, string *str) {
 string FileUtil::GetCurrentPath() {
   return boost::filesystem::current_path().string();
 }
+
+string FileUtil::TruncatePath(const string &src, const string &path) {
+  string real_path = boost::filesystem::canonical(src).string();
+  std::string::size_type n = real_path.find(path);
+  if (n != string::npos) {
+    return real_path.substr(0, n);
+  }
+  return "";
+}
 } // namespace protobuf_plugin_demo

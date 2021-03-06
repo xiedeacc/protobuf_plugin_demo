@@ -44,7 +44,8 @@ private:
 private:
   const mutable google::protobuf::FileDescriptor *file_;
   mutable google::protobuf::compiler::GeneratorContext *generator_context_;
-  std::string template_dir_;
+  mutable std::string template_dir_;
+  mutable std::string template_base_dir_;
 };
 
 } // namespace protobuf_plugin_demo

@@ -103,6 +103,12 @@ git_repository(
     tag = "v1.17.0",
 )
 
+git_repository(
+    name = "com_google_absl",
+    remote = "https://github.com/xiedeacc/abseil-cpp.git",
+    tag = "20200923.4",
+)
+
 load("@envoy//bazel:api_binding.bzl", "envoy_api_binding")
 
 envoy_api_binding()
