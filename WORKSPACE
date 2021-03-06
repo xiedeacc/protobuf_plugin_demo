@@ -1,4 +1,4 @@
-workspace(name = "demo")
+workspace(name = "protobuf_plugin_demo")
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
@@ -133,23 +133,24 @@ git_repository(
 )
 
 git_repository(
+    name = "cc_grpc_library_demo",
+    remote = "https://github.com/xiedeacc/cc_grpc_library_demo.git",
+    commit = "829dbf14fdff70a44989ad6e53dc4aeb4cee190c",
+)
+
+git_repository(
+    name = "com_github_gflags_gflags",
+    remote = "https://github.com/xiedeacc/gflags.git",
+    tag = "v2.2.2",
+)
+
+git_repository(
     name = "glog",
     remote = "https://github.com/xiedeacc/glog.git",
     tag = "v0.3.7",
 )
 
-git_repository(
-    name = "org_tensorflow",
-    remote = "https://github.com/tensorflow/tensorflow.git",
-    tag = "v2.4.0",
-)
-
-load(
-    "@org_tensorflow//tensorflow:workspace.bzl",
-    "tf_workspace",
-)
-
-tf_workspace(
-    path_prefix = "",
-    tf_repo_name = "org_tensorflow",
+bind(
+    name = "gflags",
+    actual = "@com_github_gflags_gflags//:gflags",
 )

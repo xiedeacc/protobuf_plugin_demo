@@ -1,15 +1,10 @@
-
-/*******************************************************************************
- * Copyright (c) 2015, 2019 Copyright 2015-2018 pinduoduo.com.
- * All rights reserved.
- *******************************************************************************/
 #ifndef FILE_UTIL_H_
 #define FILE_UTIL_H_
 #include <cstddef>
 #include <sstream>
 #include <string>
 #include <vector>
-namespace demo {
+namespace protobuf_plugin_demo {
 class FileUtil {
 private:
   FileUtil() {}
@@ -28,6 +23,6 @@ public:
                       std::string *str);
 };
 
-} /* namespace demo*/
+} /* namespace protobuf_plugin_demo*/
 
 #endif /* FILE_UTIL_H_ */

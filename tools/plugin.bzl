@@ -69,6 +69,7 @@ def proto_generate_impl(ctx):
     all_files = ctx.attr.src.files.to_list()
     protoc_cmd = [protoc]
     protoc_cmd += ["--proto_path=" + proto_path]
+    protoc_cmd += ["--proto_path=" + "."]
     all_inputs = []
 
     for pfile in ctx.attr.src.files.to_list():
@@ -111,6 +112,12 @@ _proto_generate = rule(
             executable = True,
             cfg = "target",
         ),
+        "proto_file": attr.label(
+            mandatory = True,
+            providers = [ProtoInfo],
+            allow_single_file = True,
+        ),
+        "data": attr.label_list(allow_files = True),
     },
     output_to_genfiles = True,
     implementation = proto_generate_impl,
@@ -123,6 +130,8 @@ def proto_generate(name, src, plugin, outs = [], protoc = None):
         "src": src,
         "plugin": plugin,
         "outs": outs,
+        "proto_file": proto_file,
+        "data": data,
     })
     if protoc:
         args["protoc"] = protoc
@@ -132,12 +141,14 @@ def cc_proto_plugin(
         name,
         src,
         plugin,
+        proto_file,
+        data,
         outs = [],
         deps = [],
         protoc = None,
         **kwargs):
     proto_name = name + "_proto"
-    proto_generate(proto_name, src, plugin, outs, protoc)
+    proto_generate(proto_name, src, plugin, proto_file, data, outs, protoc)
     native.cc_library(
         name = name,
         srcs = [proto_name],

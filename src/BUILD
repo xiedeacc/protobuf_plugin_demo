@@ -3,6 +3,26 @@ load("//tools:plugin.bzl", "cc_proto_plugin")
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
+    name = "base_type_memory",
+    hdrs = ["base_type_memory.h"],
+    deps = [
+        ":fg_attr",
+        "//external:gtest",
+        "@boost//:smart_ptr",
+        "@com_google_absl//absl/time",
+    ],
+)
+
+cc_test(
+    name = "base_type_memory_test",
+    srcs = ["base_type_memory_test.cc"],
+    deps = [
+        ":base_type_memory",
+        "@glog",
+    ],
+)
+
+cc_library(
     name = "file_util",
     srcs = ["file_util.cc"],
     hdrs = ["file_util.h"],
@@ -35,7 +55,7 @@ cc_binary(
 
 cc_proto_plugin(
     name = "pb_code_generator_plugin",
-    src = "//src/proto:proto_file",
+    src = "@cc_grpc_library_demo//:foo_bar_files",
     outs = [
         "void_data_maker.cc",
         "void_data_maker.h",
@@ -44,7 +64,8 @@ cc_proto_plugin(
     plugin = ":pb_code_generator",
     protoc = "@com_google_protobuf//:protoc",
     deps = [
-        "//src/proto:demo_proto",
+        "@cc_grpc_library_demo//:cc_bar_proto",
+        "@cc_grpc_library_demo//:cc_foo_proto",
         "@boost//:smart_ptr",
         "@com_google_absl//absl/strings",
         "@glog",

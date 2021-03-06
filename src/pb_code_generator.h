@@ -1,7 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015, 2018 Copyright 2015-2021 pinduoduo.com.
- * All rights reserved.
- *******************************************************************************/
 #ifndef PB_CODE_GENERATOR_H_
 #define PB_CODE_GENERATOR_H_
 #include "google/protobuf/compiler/code_generator.h"
@@ -10,7 +6,7 @@
 #include <set>
 #include <string>
 #include <vector>
-namespace demo {
+namespace protobuf_plugin_demo {
 
 class PBCodeGenerator : public google::protobuf::compiler::CodeGenerator {
 public:
@@ -36,8 +32,6 @@ private:
   std::string ToTypeName(const google::protobuf::FieldDescriptor &field) const;
   std::string
   ToTypeFullName(const google::protobuf::FieldDescriptor &field) const;
-  static void BuildConfigName(const std::string &full_name,
-                              std::string *config_name, bool *is_common);
 
   void GenerateOutStr2(std::string &store_content, // NOLINT
                        const google::protobuf::FieldDescriptor &level2_field,
@@ -53,6 +47,6 @@ private:
   std::string template_dir_;
 };
 
-} // namespace demo
+} // namespace protobuf_plugin_demo
 
 #endif /* PB_CODE_GENERATOR_H_ */

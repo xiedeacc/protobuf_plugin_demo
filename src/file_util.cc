@@ -1,7 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015, 2019 Copyright 2015-2018 pinduoduo.com.
- * All rights reserved.
- *******************************************************************************/
 #include "src/file_util.h"
 #include "boost/filesystem.hpp"
 #include "glog/logging.h"
@@ -14,7 +10,7 @@
 using std::string;
 using std::vector;
 
-namespace demo {
+namespace protobuf_plugin_demo {
 
 bool FileUtil::ListDir(const string &dir, vector<string> *files) {
   ::DIR *d;
@@ -109,4 +105,4 @@ void FileUtil::Replace(const string &from, const string &to, string *str) {
 string FileUtil::GetCurrentPath() {
   return boost::filesystem::current_path().string();
 }
-} // namespace demo
+} // namespace protobuf_plugin_demo
