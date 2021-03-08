@@ -46,6 +46,7 @@ namespace protobuf_plugin_demo {
         bool ret = true;
         ret = ret && GeneratePBFeatureData();
         ret = ret && GenerateVoidDataCodeH();
+        LOG(ERROR) << "final";
         return ret;
     }
     bool PBCodeGenerator::GenerateVoidDataCodeH() const {
