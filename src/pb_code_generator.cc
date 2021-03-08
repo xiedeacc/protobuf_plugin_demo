@@ -347,7 +347,7 @@ namespace protobuf_plugin_demo {
 int main(int argc, char *argv[]) {
     string template_base_dir = FileUtil::GetRealPath(argv[0]);
     template_base_dir = FileUtil::TruncatePath(template_base_dir, "bazel-out");
-    LOG(ERROR) << template_base_dir;
+    LOG(ERROR) << "template_base_dir: " << template_base_dir << ", current_dir" << FileUtil::GetCurrentPath();
     protobuf_plugin_demo::PBCodeGenerator generator(template_base_dir);
     return google::protobuf::compiler::PluginMain(argc, argv, &generator);
 }

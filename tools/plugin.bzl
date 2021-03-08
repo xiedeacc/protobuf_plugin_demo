@@ -58,18 +58,18 @@ def proto_generate_impl(ctx):
         execdir = ctx.var["GENDIR"] + external
     protoc = _get_offset_path(execdir, ctx.executable.protoc.path)
     plugin = _get_offset_path(execdir, ctx.executable.plugin.path)
+    dir_out = _get_offset_path(execdir, ctx.executable.plugin.dirname)
     print(ctx.var)
     print(ctx.workspace_name)
     print(ctx.bin_dir)
     print(ctx.build_file_path)
     print(ctx.genfiles_dir.path)
-    dir_out = _get_offset_path(execdir, ctx.genfiles_dir.path)
+    print(dir_out)
     plugin_directory = ctx.attr.data[0].files.to_list()[0].dirname
     print(plugin_directory)
     proto = ctx.attr.proto_file[ProtoInfo].direct_sources[0]
     
     out_files = [ctx.actions.declare_file(out) for out in ctx.attr.outs]
-    dir_out = "%s/%s" % (dir_out, ctx.build_file_path[:-5])
     path = _get_offset_path(execdir, proto.path)
     proto_path = "/".join(path.split("/")[:-1])
 
