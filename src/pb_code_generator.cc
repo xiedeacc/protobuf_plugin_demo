@@ -159,7 +159,7 @@ namespace protobuf_plugin_demo {
                 ++level2_idx) {
                 auto &level2_field = *(level1_msg.field(level2_idx));
                 if (level2_field.type() != FieldDescriptor::Type::TYPE_MESSAGE) {
-                    LOG(ERROR) << "level2 is not msg";
+                    LOG(ERROR) << "level2 is not msg, name: " << level2_field.name();
                     continue;
                 }
                 auto &level2_msg = *(level2_field.message_type());

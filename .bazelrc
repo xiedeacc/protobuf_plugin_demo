@@ -37,4 +37,9 @@ test:coverage --nocache_test_results
 # Do not show warnings from external dependencies.
 build --output_filter="^//"
 
+build --experimental_repo_remote_exec
 import tools/bazel.rc
+build -c opt
+build --copt='-g'
+build --spawn_strategy=sandboxed
+build --strip='never'
