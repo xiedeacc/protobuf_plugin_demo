@@ -83,7 +83,7 @@ def proto_generate_impl(ctx):
         protoc_cmd += ["-I" + rpath + "=" + ppath]
     protoc_cmd += ["--plugin=protoc-gen-PLUGIN=" + plugin]
     protoc_cmd += ["--PLUGIN_opt=" + plugin_directory]
-    protoc_cmd += ["--PLUGIN_out=" + "../../bazel-out/k8-fastbuild/bin/external/protobuf_plugin_demo/src"]
+    protoc_cmd += ["--PLUGIN_out=" + "../../bazel-out/k8-opt/bin/external/protobuf_plugin_demo/src"]
     protoc_cmd += [path]
 
     cmds = []
