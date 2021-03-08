@@ -328,7 +328,9 @@ namespace protobuf_plugin_demo {
             LOG(ERROR) << "Empty file or context.file_name=" << file_name;
             return false;
         }
+        LOG(ERROR) << "1, " << file_name;
         unique_ptr<ZeroCopyOutputStream> output(generator_context_->Open(file_name));
+        LOG(ERROR) << "2, " << file_name;
         Printer printer(output.get(), '$', nullptr);
         printer.Print(content.c_str());
         return true;
