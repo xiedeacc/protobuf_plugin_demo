@@ -333,6 +333,7 @@ namespace protobuf_plugin_demo {
         LOG(ERROR) << "2, " << file_name;
         Printer printer(output.get(), '$', nullptr);
         printer.Print(content.c_str());
+        LOG(ERROR) << "3, " << file_name;
         return true;
     }
 
