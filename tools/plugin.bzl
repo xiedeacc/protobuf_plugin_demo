@@ -58,6 +58,11 @@ def proto_generate_impl(ctx):
         execdir = ctx.var["GENDIR"] + external
     protoc = _get_offset_path(execdir, ctx.executable.protoc.path)
     plugin = _get_offset_path(execdir, ctx.executable.plugin.path)
+    print(ctx.var)
+    print(ctx.workspace_name)
+    print(ctx.bin_dir)
+    print(ctx.build_file_path)
+    print(ctx.genfiles_dir.path)
     dir_out = _get_offset_path(execdir, ctx.genfiles_dir.path)
     plugin_directory = ctx.attr.data[0].files.to_list()[0].dirname
     print(plugin_directory)
@@ -83,7 +88,8 @@ def proto_generate_impl(ctx):
         protoc_cmd += ["-I" + rpath + "=" + ppath]
     protoc_cmd += ["--plugin=protoc-gen-PLUGIN=" + plugin]
     protoc_cmd += ["--PLUGIN_opt=" + plugin_directory]
-    protoc_cmd += ["--PLUGIN_out=" + "../../bazel-out/k8-opt/bin/external/protobuf_plugin_demo/src"]
+    protoc_cmd += ["--PLUGIN_out=" + dir_out]
+    #protoc_cmd += ["--PLUGIN_out=" + "../../bazel-out/k8-opt/bin/external/protobuf_plugin_demo/src"]
     protoc_cmd += [path]
 
     cmds = []
